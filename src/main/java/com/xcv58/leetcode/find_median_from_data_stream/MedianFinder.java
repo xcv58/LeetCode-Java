@@ -6,32 +6,26 @@ import java.util.PriorityQueue;
  * Created by xcv58 on 10/25/15.
  */
 class MedianFinder {
-    private PriorityQueue<Integer> leftHeap, rightHeap;
+    private PriorityQueue<Integer> leftHeap = new PriorityQueue<Integer>(),
+            rightHeap = new PriorityQueue<Integer>((o1, o2) -> o2 - o1),
+            l = leftHeap, temp;
 
-    public MedianFinder() {
-        leftHeap = new PriorityQueue<Integer>();
-        rightHeap = new PriorityQueue<Integer>((o1, o2) -> o2 - o1);
-    }
-
-    // Adds a number into the data structure.
+    /**
+     * use temp to swap left/right heap, so that keep balance
+     * @param num Adds a number into the data structure.
+     */
     public void addNum(int num) {
-        rightHeap.offer(num);
-        leftHeap.offer(rightHeap.poll());
-        if (leftHeap.size() > rightHeap.size()) {
-            rightHeap.offer(leftHeap.poll());
-        }
+        (temp = rightHeap).offer(num);
+        (rightHeap = leftHeap).offer((leftHeap = temp).poll());
     }
 
-    // Returns the median of current data stream
+
+    /**
+     * rightHeap may be leftHeap if rightHeap.size() > leftHeap.size()
+     * @return the median of current data stream
+     */
     public double findMedian() {
-        if (rightHeap.isEmpty()) {
-            return -1.0;
-        }
-        if (rightHeap.size() > leftHeap.size()) {
-            return rightHeap.peek();
-        } else {
-            return (rightHeap.peek() + leftHeap.peek()) / 2.0;
-        }
+        return (rightHeap.peek() + l.peek()) / 2.0;
     }
 };
 
