@@ -31,7 +31,4 @@ public class SolutionTest {
         assertFalse(solution.canWinNim(16));
         assertFalse(solution.canWinNim(20));
     }
-
-    private void test(int target, int n, Solution solution) {
-    }
 }
