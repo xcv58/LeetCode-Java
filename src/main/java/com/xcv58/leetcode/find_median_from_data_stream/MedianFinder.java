@@ -9,26 +9,16 @@ class MedianFinder {
     private PriorityQueue<Integer> leftHeap, rightHeap;
 
     public MedianFinder() {
-        leftHeap = new PriorityQueue<Integer>(32);
-        rightHeap = new PriorityQueue<Integer>(32, (o1, o2) -> o2 - o1);
+        leftHeap = new PriorityQueue<Integer>();
+        rightHeap = new PriorityQueue<Integer>((o1, o2) -> o2 - o1);
     }
 
     // Adds a number into the data structure.
     public void addNum(int num) {
-        if (leftHeap.size() == rightHeap.size()) {
-            if (!leftHeap.isEmpty() && num > leftHeap.peek()) {
-                rightHeap.offer(leftHeap.poll());
-                leftHeap.offer(num);
-            } else {
-                rightHeap.offer(num);
-            }
-        } else {
-            if (num < rightHeap.peek()) {
-                leftHeap.offer(rightHeap.poll());
-                rightHeap.offer(num);
-            } else {
-                leftHeap.offer(num);
-            }
+        rightHeap.offer(num);
+        leftHeap.offer(rightHeap.poll());
+        if (leftHeap.size() > rightHeap.size()) {
+            rightHeap.offer(leftHeap.poll());
         }
     }
 
