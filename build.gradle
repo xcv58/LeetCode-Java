@@ -29,3 +29,14 @@ dependencies {
     // 'test.useTestNG()' to your build script.
     testCompile 'junit:junit:4.12'
 }
+
+task checkJavaVersion << {
+    if (!JavaVersion.current().isJava8()) {
+        String message = "ERROR: Java 1.8 required but " +
+            JavaVersion.current() +
+            " found. Change your JAVA_HOME environment variable.";
+        throw new IllegalStateException(message);
+    }
+}
+
+compileJava.dependsOn checkJavaVersion
