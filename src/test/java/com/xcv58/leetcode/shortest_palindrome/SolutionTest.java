@@ -15,5 +15,6 @@ public class SolutionTest {
         assertEquals("aaabaaa", solution.shortestPalindrome("baaa"));
         assertEquals("aaacecaaa", solution.shortestPalindrome("aacecaaa"));
         assertEquals("dcbabcd", solution.shortestPalindrome("abcd"));
+        assertEquals("cbbcadbcbbcbdacbbc", solution.shortestPalindrome("cbbcbdacbbc"));
     }
 }
