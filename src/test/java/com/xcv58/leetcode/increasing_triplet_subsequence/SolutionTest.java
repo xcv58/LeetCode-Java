@@ -1,7 +1,6 @@
 package com.xcv58.leetcode.increasing_triplet_subsequence;
 
 import org.junit.Test;
-import org.omg.PortableInterceptor.INACTIVE;
 
 import static org.junit.Assert.*;
 

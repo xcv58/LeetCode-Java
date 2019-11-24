@@ -1,7 +1,6 @@
 package com.xcv58.leetcode.primes;
 
 import org.junit.Test;
-import org.omg.CORBA.StringHolder;
 
 import static org.junit.Assert.*;
 
