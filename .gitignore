@@ -64,3 +64,5 @@ gradle-app.setting
 
 .classpath
 bin/
+
+node_modules

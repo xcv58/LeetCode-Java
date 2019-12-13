@@ -61,10 +61,12 @@ def create_test_class(name, package_name):
 
 for i in sys.argv[1:]:
     if 'http' in i or 'leetcode.com' in i:
-        name = i.strip('/').split('/')[-1].replace('-', '_')
+        title_slug = i.replace('/submission', '').strip('/').split('/')[-1]
         break
 else:
-    name = '_'.join(i.lower() for i in sys.argv[1:])
+    title_slug = '-'.join(i.lower() for i in sys.argv[1:])
+
+name = title_slug.replace('-', '_')
 
 package_name = 'package com.xcv58.leetcode.%s;' % (name)
 

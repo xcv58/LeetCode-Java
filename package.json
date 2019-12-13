@@ -1,0 +1,26 @@
+{
+  "name": "LeetCode-Java",
+  "version": "0.0.1",
+  "description": "Helper command to create java package from LeetCode\"",
+  "repository": "git@github.com:xcv58/LeetCode-Java.git",
+  "author": "xcv58 <i@xcv58.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "ts-node index.ts"
+  },
+  "dependencies": {
+    "@types/node": "^12.12.17",
+    "apollo-boost": "^0.4.4",
+    "apollo-client": "^2.6.4",
+    "apollo-link-http": "^1.5.16",
+    "chalk": "^3.0.0",
+    "cross-fetch": "^3.0.4",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
+    "node-fetch": "^2.6.0",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3",
+    "yargs": "^15.0.2"
+  }
+}
