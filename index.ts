@@ -80,7 +80,7 @@ const create = ({
   title,
   titleSlug
 }) => {
-  const name = titleSlug.replace(/-/g, '_')
+  const name = titleSlug.replace(/-/g, '_').replace(/^(?=\d)/, '_')
   const packageName = `package com.xcv58.leetcode.${name};`
   const srcDirectory = join(SRC, name)
   const testDirectory = join(TEST, name)
