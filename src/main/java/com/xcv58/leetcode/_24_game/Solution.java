@@ -1,61 +1,55 @@
 package com.xcv58.leetcode._24_game;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Solution {
   public boolean judgePoint24(int[] nums) {
-    List<Float> list = new ArrayList<>();
-    for (int n: nums) {
-      list.add((float)n);
+    float[] floatNums = new float[nums.length];
+    for (int i = 0; i < nums.length; i++) {
+      floatNums[i] = nums[i];
     }
-    return this.judgePoint24(list);
+    return this.judgePoint24(floatNums);
   }
 
-  private boolean judgePoint24(List<Float> nums) {
-    if (nums.size() == 1) {
-      return Math.abs(nums.get(0) - 24.0) < 0.00001;
+  private boolean judgePoint24(float[] nums) {
+    if (nums.length == 1) {
+      return Math.abs(nums[0] - 24.0) < 0.00001;
     }
-    for (int i = 0; i < nums.size(); i++) {
-      for (int j = 0; j < nums.size(); j++) {
-        if (i == j) {
-          continue;
-        }
-        List<Float> combo = this.getAllCombo(nums.get(i), nums.get(j));
-        List<Float> rest = this.getRest(nums, i, j);
+    for (int i = 0; i < nums.length; i++) {
+      for (int j = i + 1; j < nums.length; j++) {
+        float[] combo = this.getAllCombo(nums[i], nums[j]);
+        float[] rest = this.getRest(nums, i, j);
         for (float c: combo) {
-          rest.add(c);
+          rest[0] = c;
           if (this.judgePoint24(rest)) {
             return true;
           }
-          rest.remove(c);
         }
       }
     }
     return false;
   }
 
-  private List<Float> getRest(List<Float> nums, int i, int j) {
-    List<Float> res = new ArrayList<>();
-    for (int x = 0; x < nums.size(); x++) {
+  private float[] getRest(float[] nums, int i, int j) {
+    float[] res = new float[nums.length - 1];
+    for (int x = 0, c = 1; x < nums.length; x++) {
       if (x != i && x != j) {
-        res.add(nums.get(x));
+        res[c++] = nums[x];
       }
     }
     return res;
   }
 
-  private List<Float> getAllCombo(float x, float y) {
-    List<Float> res = new ArrayList<>();
-    res.add(x + y);
-    res.add(x - y);
-    res.add(x * y);
-    res.add(y - x);
+  private float[] getAllCombo(float x, float y) {
+    float[] res = new float[4 + (x != 0 ? 1 : 0) + (y != 0 ? 1 : 0)];
+    int i = 0;
+    res[i++] = x + y;
+    res[i++] = x - y;
+    res[i++] = x * y;
+    res[i++] = y - x;
     if (y != 0) {
-      res.add(x / y);
+      res[i++] = x / y;
     }
     if (x != 0) {
-      res.add(y / x);
+      res[i++] = y / x;
     }
     return res;
   }
