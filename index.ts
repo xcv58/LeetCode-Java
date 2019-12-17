@@ -37,9 +37,7 @@ ${content}
 `)
 }
 
-const SOLUTION_CONTENT =
-  `public class Solution {
-}`
+const SOLUTION_CONTENT = `public`
 
 const TEST_CONTENT =
   `import org.junit.Test;
@@ -49,6 +47,7 @@ import static org.junit.Assert.*;
 public class SolutionTest {
     @Test public void test() {
         Solution solution = new Solution();
+        assertEquals(0, 0)
     }
 }`
 
