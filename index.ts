@@ -47,7 +47,7 @@ import static org.junit.Assert.*;
 public class SolutionTest {
     @Test public void test() {
         Solution solution = new Solution();
-        assertEquals(0, 0)
+        assertEquals(0, 0);
     }
 }`
 
