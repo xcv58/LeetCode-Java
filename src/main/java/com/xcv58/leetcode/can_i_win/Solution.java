@@ -1,6 +1,5 @@
 package com.xcv58.leetcode.can_i_win;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Solution {
@@ -8,28 +7,36 @@ public class Solution {
     if ((maxChoosableInteger + 1) * maxChoosableInteger / 2 < desiredTotal) {
       return false;
     }
-    int[] nums = new int[maxChoosableInteger];
-    HashMap<String, Boolean> map = new HashMap<>();
-    return this.canIWin(nums, desiredTotal, map);
+    int index = this.getIndex(maxChoosableInteger);
+    HashMap<Integer, Boolean> map = new HashMap<>();
+    return this.canIWin(index, desiredTotal, map);
   }
 
-  private boolean canIWin(int[] nums, int desiredTotal, HashMap<String, Boolean> map) {
-    String key = Arrays.toString(nums) + "-" + desiredTotal;
+  protected int getIndex(int x) {
+    int index = 0;
+    for (int i = 0, bit = 1; i < x; i++, bit <<= 1) {
+      index = index | bit;
+    }
+    return index;
+  }
+
+  private boolean canIWin(int index, int desiredTotal, HashMap<Integer, Boolean> map) {
+    Integer key = (index << 10) + desiredTotal;
     if (map.containsKey(key)) {
       return map.get(key);
     }
-    for (int i = nums.length - 1; i >= 0; i--) {
-      if (nums[i] == 0) {
-        if (i + 1 >= desiredTotal) {
+    for (int i = 1, bit = 1; i <= 20; i++, bit <<= 1) {
+      if ((bit & index) > 0) {
+        if (i >= desiredTotal) {
           return true;
         }
-        nums[i] = 1;
-        if (!this.canIWin(nums, desiredTotal - i - 1, map)) {
-          nums[i] = 0;
+        index -= bit;
+        if (!this.canIWin(index, desiredTotal - i, map)) {
+          index += bit;
           map.put(key, true);
           return true;
         }
-        nums[i] = 0;
+        index += bit;
       }
     }
     map.put(key, false);
