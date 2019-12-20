@@ -1,44 +1,40 @@
 package com.xcv58.leetcode.binary_tree_cameras;
 
-import java.util.HashMap;
-
 import com.xcv58.leetcode.TreeNode;
 
 public class Solution {
-  private HashMap<String, Integer> map = new HashMap<>();
-  public int minCameraCover(TreeNode root) {
-    this.map = new HashMap<>();
-    return this.min(root, false, false);
+  class State {
+    int subTree, noRootCamera, rootCamera;
+
+    public int covered() {
+      return Math.min(this.noRootCamera, this.rootCamera);
+    }
+
+    public State(int subTree, int noRootCamera, int rootCamera) {
+      this.subTree = subTree;
+      this.noRootCamera = noRootCamera;
+      this.rootCamera = rootCamera;
+    }
   }
 
-  protected int min(TreeNode root, boolean needParentCover, boolean isCovered) {
-    if (root == null) {
-      if (needParentCover) {
-        return 1;
-      }
-      return 0;
-    }
-    String key = root.hashCode() + "-" + needParentCover + isCovered;
-    if (map.containsKey(key)) {
-      return map.get(key);
-    }
+  public int minCameraCover(TreeNode root) {
+    return getState(root).covered();
+  }
 
-    if (isCovered) {
-      int res = Math.min(this.min(root.left, false, false) + this.min(root.right, false, false),
-          1 + this.min(root.left, false, true) + this.min(root.right, false, true));
-      map.put(key, res);
-      return res;
-    } else {
-      int take = 1 + this.min(root.left, false, true) + this.min(root.right, false, true);
-      if (needParentCover) {
-        map.put(key, take);
-        return take;
-      }
-      int left = this.min(root.left, true, false) + this.min(root.right, false, false);
-      int right = this.min(root.left, false, false) + this.min(root.right, true, false);
-      int res = Math.min(Math.min(left, right), take);
-      map.put(key, res);
-      return res;
+  private State getState(TreeNode root) {
+    if (root == null) {
+      return new State(0, 0, Integer.MAX_VALUE / 100);
     }
+    State left = getState(root.left);
+    State right = getState(root.right);
+
+    int oneSide = Math.min(left.subTree + right.covered(), right.subTree + left.covered());
+    int bothSide = left.subTree + right.subTree;
+
+    return new State(
+      left.noRootCamera + right.noRootCamera,
+      Math.min(left.rootCamera + right.covered(), right.rootCamera + left.covered()),
+      1 + Math.min(oneSide, bothSide)
+    );
   }
 }
