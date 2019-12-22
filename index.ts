@@ -12,6 +12,7 @@ import {
 import {
   join
 } from 'path'
+import { execSync } from 'child_process';
 
 const PATTERN = /(?<=leetcode\.com\/problems\/)[^/]*/g
 
@@ -69,6 +70,14 @@ const echoGitCommands = ({
 && ${gitCommit}`));
 }
 
+const execCommitCommands = ({ directories, title }) => {
+  const gitAdd = `git add ${directories.join(' ')}`
+  const gitCommit = `git commit -m 'add solution for ${title}'`
+  execSync('git reset HEAD')
+  execSync(gitAdd)
+  execSync(gitCommit)
+}
+
 const createDirectories = (directories) => {
   directories.forEach(x => mkdirSync(x, {
     recursive: true
@@ -95,7 +104,15 @@ const create = ({
   })
 }
 
-const QUESTION_QUERY = gql `
+const commit = ({ title, titleSlug }) => {
+  const name = titleSlug.replace(/-/g, '_').replace(/^(?=\d)/, '_')
+  const srcDirectory = join(SRC, name)
+  const testDirectory = join(TEST, name)
+  const directories = [srcDirectory, testDirectory]
+  execCommitCommands({ directories, title })
+}
+
+const QUESTION_QUERY = gql`
 query questionData($titleSlug: String!) {
   question(titleSlug: $titleSlug) {
     questionId
@@ -154,33 +171,42 @@ query questionData($titleSlug: String!) {
 }
 `
 
+const getTitleSlug = (url) => {
+  const match = PATTERN.exec(url)
+  if (!match) {
+    const msg = `The input URL "${url}" is invalid!`
+    console.error(msg)
+    throw new Error(msg)
+  }
+  return match[0]
+}
+
+const getQuestionData = (titleSlug) => {
+  return getClient().query({
+    query: QUESTION_QUERY,
+    variables: { titleSlug }
+  })
+}
+
 yargs
   .scriptName("leetcode-java")
   .usage('$0 <cmd> [args]')
-  .command('$0 <url>', 'Create Java template and commit to git', () => {}, (argv) => {
-    const {
-      url
-    } = argv
-    const match = PATTERN.exec(url)
-    if (!match) {
-      console.error(`The input URL "${url}" is invalid!`)
-      return
-    }
-    const titleSlug = match[0]
-    getClient().query({
-        query: QUESTION_QUERY,
-        variables: {
-          titleSlug
-        }
-      })
+  .command(['commit <url>', 'c'], 'Commit the solution to git', () => {}, (argv) => {
+    const { url } = argv
+    const titleSlug = getTitleSlug(url)
+    getQuestionData(titleSlug)
       .then(res => {
-        const {
-          title
-        } = res.data.question
-        create({
-          title,
-          titleSlug
-        })
+        const { title } = res.data.question
+        commit({ title, titleSlug })
+      })
+  })
+  .command('$0 <url>', 'Create Java template and echo git commit commands', () => {}, (argv) => {
+    const { url } = argv
+    const titleSlug = getTitleSlug(url)
+    getQuestionData(titleSlug)
+      .then(res => {
+        const { title } = res.data.question
+        create({ title, titleSlug })
       })
   })
   .help()
