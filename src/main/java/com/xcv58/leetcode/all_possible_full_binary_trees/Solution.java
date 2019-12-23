@@ -18,9 +18,8 @@ public class Solution {
         res.add(new TreeNode(0));
       }
       for (int i = 1; i < N; i += 2) {
-        int j = N - i - 1;
         List<TreeNode> left = this.allPossibleFBT(i);
-        List<TreeNode> right = this.allPossibleFBT(j);
+        List<TreeNode> right = this.allPossibleFBT(N - 1 - i);
         for (TreeNode l : left) {
           for (TreeNode r : right) {
             TreeNode root = new TreeNode(0);
