@@ -3,6 +3,7 @@ package com.xcv58.leetcode.advantage_shuffle;
 import java.util.Arrays;
 
 public class Solution {
+
   public int[] advantageCount(int[] A, int[] B) {
     int len = A.length;
     int[] res = new int[len];

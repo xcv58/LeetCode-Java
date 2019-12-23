@@ -1,10 +1,9 @@
 package com.xcv58.leetcode.all_possible_full_binary_trees;
 
+import com.xcv58.leetcode.TreeNode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.xcv58.leetcode.TreeNode;
 
 public class Solution {
   private HashMap<Integer, List<TreeNode>> map = new HashMap<>();
@@ -22,8 +21,8 @@ public class Solution {
         int j = N - i - 1;
         List<TreeNode> left = this.allPossibleFBT(i);
         List<TreeNode> right = this.allPossibleFBT(j);
-        for (TreeNode l: left) {
-          for (TreeNode r: right) {
+        for (TreeNode l : left) {
+          for (TreeNode r : right) {
             TreeNode root = new TreeNode(0);
             root.left = l;
             root.right = r;

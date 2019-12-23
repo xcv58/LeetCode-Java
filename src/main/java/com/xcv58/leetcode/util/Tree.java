@@ -1,13 +1,13 @@
 package com.xcv58.leetcode.util;
 
+import com.xcv58.leetcode.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.xcv58.leetcode.TreeNode;
-
 public class Tree {
+
   public static TreeNode getTree(String tree) {
     String[] nodes = tree.replaceAll("\\[|\\]", "").split(",");
     return getTree(nodes);
@@ -26,7 +26,7 @@ public class Tree {
     layer.add(root);
     while (layer.size() > 0) {
       List<TreeNode> nextLayer = new ArrayList<>();
-      for (TreeNode node: layer) {
+      for (TreeNode node : layer) {
         if (node == null) {
           continue;
         }
@@ -55,8 +55,9 @@ public class Tree {
     if (root == null) {
       return "";
     }
-    return Stream.of(inOrder(root.left), Integer.toString(root.val), inOrder(root.right))
-    .filter(s -> s != null && !s.isEmpty())
-    .collect(Collectors.joining(","));
+    return Stream
+      .of(inOrder(root.left), Integer.toString(root.val), inOrder(root.right))
+      .filter(s -> s != null && !s.isEmpty())
+      .collect(Collectors.joining(","));
   }
 }

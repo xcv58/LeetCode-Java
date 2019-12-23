@@ -1,6 +1,7 @@
 package com.xcv58.leetcode._24_game;
 
 public class Solution {
+
   public boolean judgePoint24(int[] nums) {
     float[] floatNums = new float[nums.length];
     for (int i = 0; i < nums.length; i++) {
@@ -17,7 +18,7 @@ public class Solution {
       for (int j = i + 1; j < nums.length; j++) {
         float[] combo = this.getAllCombo(nums[i], nums[j]);
         float[] rest = this.getRest(nums, i, j);
-        for (float c: combo) {
+        for (float c : combo) {
           rest[0] = c;
           if (this.judgePoint24(rest)) {
             return true;

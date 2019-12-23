@@ -30,7 +30,10 @@ public class Solution {
       for (int j = start; j < start + i && j < piles.length; j++) {
         sum += piles[j];
       }
-      int current = sum + this.restSum(start + i) - this.stoneGameII(piles, Math.max(M, i), start + i);
+      int current =
+        sum +
+          this.restSum(start + i) -
+          this.stoneGameII(piles, Math.max(M, i), start + i);
       max = Math.max(current, max);
     }
     this.map.put(key, max);

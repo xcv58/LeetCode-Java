@@ -1,10 +1,11 @@
 package com.xcv58.leetcode.can_i_win;
 
-import org.junit.Test;
-
 import static org.junit.Assert.*;
 
+import org.junit.Test;
+
 public class SolutionTest {
+
   @Test
   public void test() {
     Solution solution = new Solution();

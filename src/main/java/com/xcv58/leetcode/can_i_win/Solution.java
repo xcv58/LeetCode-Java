@@ -3,6 +3,7 @@ package com.xcv58.leetcode.can_i_win;
 import java.util.HashMap;
 
 public class Solution {
+
   public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
     if ((maxChoosableInteger + 1) * maxChoosableInteger / 2 < desiredTotal) {
       return false;
@@ -20,7 +21,11 @@ public class Solution {
     return index;
   }
 
-  private boolean canIWin(int index, int desiredTotal, HashMap<Integer, Boolean> map) {
+  private boolean canIWin(
+    int index,
+    int desiredTotal,
+    HashMap<Integer, Boolean> map
+  ) {
     Integer key = (index << 10) + desiredTotal;
     if (map.containsKey(key)) {
       return map.get(key);

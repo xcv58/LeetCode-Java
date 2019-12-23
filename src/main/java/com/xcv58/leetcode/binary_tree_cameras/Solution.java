@@ -3,6 +3,7 @@ package com.xcv58.leetcode.binary_tree_cameras;
 import com.xcv58.leetcode.TreeNode;
 
 public class Solution {
+
   class State {
     int subTree, noRootCamera, rootCamera;
 
@@ -28,12 +29,18 @@ public class Solution {
     State left = getState(root.left);
     State right = getState(root.right);
 
-    int oneSide = Math.min(left.subTree + right.covered(), right.subTree + left.covered());
+    int oneSide = Math.min(
+      left.subTree + right.covered(),
+      right.subTree + left.covered()
+    );
     int bothSide = left.subTree + right.subTree;
 
     return new State(
       left.noRootCamera + right.noRootCamera,
-      Math.min(left.rootCamera + right.covered(), right.rootCamera + left.covered()),
+      Math.min(
+        left.rootCamera + right.covered(),
+        right.rootCamera + left.covered()
+      ),
       1 + Math.min(oneSide, bothSide)
     );
   }

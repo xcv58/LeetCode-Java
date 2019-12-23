@@ -1,12 +1,12 @@
 package com.xcv58.leetcode.binary_tree_cameras;
 
-import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 import com.xcv58.leetcode.TreeNode;
+import org.junit.Test;
 
 public class SolutionTest {
+
   @Test
   public void test() {
     Solution solution = new Solution();

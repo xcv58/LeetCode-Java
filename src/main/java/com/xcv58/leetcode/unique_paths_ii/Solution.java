@@ -1,6 +1,7 @@
 package com.xcv58.leetcode.unique_paths_ii;
 
 public class Solution {
+
   public int uniquePathsWithObstacles(int[][] obstacleGrid) {
     if (obstacleGrid == null || obstacleGrid.length == 0) {
       return 0;
