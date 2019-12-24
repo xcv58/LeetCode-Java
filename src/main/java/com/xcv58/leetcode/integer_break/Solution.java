@@ -11,11 +11,9 @@ public class Solution {
       return 1;
     }
     if (map[n] == 0) {
-      int max = 0;
       for (int i = 1; i < (n + 2) / 2; i++) {
-        max = Math.max(max, this.max(i) * this.max(n - i));
+        this.map[n] = Math.max(this.map[n], this.max(i) * this.max(n - i));
       }
-      map[n] = max;
     }
     return map[n];
   }
