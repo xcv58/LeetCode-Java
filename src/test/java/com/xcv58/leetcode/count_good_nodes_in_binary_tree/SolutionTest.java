@@ -20,7 +20,7 @@ public class SolutionTest {
     assertEquals(2, solution.goodNodes(root));
     root.left.left = new TreeNode(5);
     assertEquals(3, solution.goodNodes(root));
-    assertEquals(5, solution.goodNodes(Tree.getTree("[3,1,4,3,null,1,5,9]")));
-    assertEquals(3, solution.goodNodes(Tree.getTree("[3,3,null,4,2]")));
+    assertEquals(5, solution.goodNodes(Tree.getTree("3,1,4,3,null,1,5,9")));
+    assertEquals(3, solution.goodNodes(Tree.getTree("3,3,null,4,2")));
   }
 }
