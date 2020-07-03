@@ -32,8 +32,8 @@ dependencies {
 
 task checkJavaVersion {
     doLast {
-        if (!JavaVersion.current().isJava8Compatible()) {
-            String message = "ERROR: Java 1.8 compatible version required but " +
+        if (!JavaVersion.current().isJava11Compatible()) {
+            String message = "ERROR: Java 11 compatible version required but " +
                 JavaVersion.current() +
                 " found. Change your JAVA_HOME environment variable.";
             throw new IllegalStateException(message);
