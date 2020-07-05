@@ -60,4 +60,18 @@ public class Tree {
       .filter(s -> s != null && !s.isEmpty())
       .collect(Collectors.joining(","));
   }
+
+  public static boolean isSameTree(TreeNode tree1, TreeNode tree2) {
+    if (tree1 == null && tree2 == null) {
+      return true;
+    }
+    if (tree1 != null && tree2 != null) {
+      return (
+        tree1.val == tree2.val &&
+        isSameTree(tree1.left, tree2.left) &&
+        isSameTree(tree1.right, tree2.right)
+      );
+    }
+    return false;
+  }
 }
