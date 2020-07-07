@@ -70,6 +70,10 @@ const execCommitCommands = ({ directories, title }) => {
   execSync(gitCommit)
 }
 
+const openFiles = files => {
+  execSync(`code ${files.join(' ')}`)
+}
+
 const createDirectories = directories => {
   directories.forEach(x =>
     mkdirSync(x, {
@@ -89,6 +93,7 @@ const create = ({ title, titleSlug }) => {
   createDirectories(directories)
   createSolutionClass(srcFile, packageName)
   createTestClass(testFile, packageName)
+  openFiles([srcFile, testFile])
   echoGitCommands({
     directories,
     title
