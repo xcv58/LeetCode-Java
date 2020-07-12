@@ -11,7 +11,7 @@ const PATTERN = /(?<=leetcode\.com\/problems\/)[^/]*/g
 const getClient = () => {
   const endpoint = 'https://leetcode.com/graphql'
   return new ApolloClient({
-    uri: endpoint
+    uri: endpoint,
   })
 }
 
@@ -41,7 +41,7 @@ import static org.junit.Assert.*;
 public class SolutionTest {
     @Test public void test() {
         Solution solution = new Solution();
-        assertEquals(0, 0);
+        assertEquals(0, solution.);
     }
 }`
 
@@ -70,14 +70,14 @@ const execCommitCommands = ({ directories, title }) => {
   execSync(gitCommit)
 }
 
-const openFiles = files => {
+const openFiles = (files) => {
   execSync(`code ${files.join(' ')}`)
 }
 
-const createDirectories = directories => {
-  directories.forEach(x =>
+const createDirectories = (directories) => {
+  directories.forEach((x) =>
     mkdirSync(x, {
-      recursive: true
+      recursive: true,
     })
   )
 }
@@ -96,7 +96,7 @@ const create = ({ title, titleSlug }) => {
   openFiles([srcFile, testFile])
   echoGitCommands({
     directories,
-    title
+    title,
   })
 }
 
@@ -107,7 +107,7 @@ const commit = ({ title, titleSlug }) => {
   const directories = [srcDirectory, testDirectory]
   execCommitCommands({
     directories,
-    title
+    title,
   })
 }
 
@@ -170,7 +170,7 @@ const QUESTION_QUERY = gql`
   }
 `
 
-const getTitleSlug = url => {
+const getTitleSlug = (url) => {
   const match = PATTERN.exec(url)
   if (!match) {
     const msg = `The input URL "${url}" is invalid!`
@@ -180,12 +180,12 @@ const getTitleSlug = url => {
   return match[0]
 }
 
-const getQuestionData = titleSlug => {
+const getQuestionData = (titleSlug) => {
   return getClient().query({
     query: QUESTION_QUERY,
     variables: {
-      titleSlug
-    }
+      titleSlug,
+    },
   })
 }
 
@@ -195,26 +195,26 @@ yargs
   .command(
     '$0 <url>',
     'Create Java template or execute git commit commands',
-    args => {
+    (args) => {
       args.option('commit', {
         alias: 'c',
-        type: 'boolean'
+        type: 'boolean',
       })
     },
-    argv => {
+    (argv) => {
       const { url } = argv
       const titleSlug = getTitleSlug(url)
-      getQuestionData(titleSlug).then(res => {
+      getQuestionData(titleSlug).then((res) => {
         const { title } = res.data.question
         if (argv.commit) {
           commit({
             title,
-            titleSlug
+            titleSlug,
           })
         } else {
           create({
             title,
-            titleSlug
+            titleSlug,
           })
         }
       })
