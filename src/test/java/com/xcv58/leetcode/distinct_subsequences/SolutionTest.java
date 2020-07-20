@@ -17,6 +17,7 @@ public class SolutionTest {
     assertEquals(0, solution.numDistinct("", "a"));
     assertEquals(0, solution.numDistinct("a", "b"));
     assertEquals(0, solution.numDistinct("aaa", "aaaaaa"));
+    assertEquals(0, solution.numDistinct("abcdefgh", "zz"));
     assertEquals(1, solution.numDistinct("a", "a"));
     assertEquals(1, solution.numDistinct("ab", "a"));
     assertEquals(4, solution.numDistinct("aaaabcd", "abcd"));
