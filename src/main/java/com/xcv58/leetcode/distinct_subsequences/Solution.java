@@ -19,8 +19,8 @@ public class Solution {
     int[][] dp = new int[m][n];
     Arrays.fill(dp[0], 1);
     for (int i = 1; i < m; i++) {
-      for (int j = 1; j < n; j++) {
-        dp[i][j] += dp[i][j - 1];
+      for (int j = i; j < n; j++) {
+        dp[i][j] = dp[i][j - 1];
         if (s.charAt(j - 1) == t.charAt(i - 1)) {
           dp[i][j] += dp[i - 1][j - 1];
         }
