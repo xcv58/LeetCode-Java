@@ -9,6 +9,10 @@ public class Solution {
       return 0;
     }
     int len = A.length;
+    HashMap<Integer, Integer> map = new HashMap<>();
+    for (int i = 0; i < len; i++) {
+      map.put(A[i], i);
+    }
     int[][] dp = new int[len][len];
     for (int[] arr : dp) {
       Arrays.fill(arr, -1);
@@ -16,27 +20,29 @@ public class Solution {
     int res = 0;
     for (int i = 0; i < len; i++) {
       for (int j = i + 1; j < len; j++) {
-        int tmp = lenLongestFibSubseq(A, len, i, j, dp);
+        int tmp = lenLongestFibSubseq(A, i, j, map, dp);
         res = Math.max(res, tmp);
       }
     }
     return res;
   }
 
-  private int lenLongestFibSubseq(int[] A, int len, int i, int j, int[][] dp) {
+  private int lenLongestFibSubseq(
+    int[] A,
+    int i,
+    int j,
+    HashMap<Integer, Integer> map,
+    int[][] dp
+  ) {
     if (dp[i][j] != -1) {
       return dp[i][j];
     }
-    if (i == j) {
-      return -1;
-    }
     int target = A[i] + A[j];
-    int index = Arrays.binarySearch(A, target);
-    if (index < 0) {
+    if (!map.containsKey(target)) {
       dp[i][j] = 0;
       return dp[i][j];
     }
-    int tmp = lenLongestFibSubseq(A, len, j, index, dp);
+    int tmp = lenLongestFibSubseq(A, j, map.get(target), map, dp);
     if (tmp == 0) {
       dp[i][j] = 3;
     } else {

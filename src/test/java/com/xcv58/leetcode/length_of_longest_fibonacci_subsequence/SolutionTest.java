@@ -11,12 +11,11 @@ public class SolutionTest {
     Solution solution = new Solution();
     assertEquals(0, solution.lenLongestFibSubseq(null));
     assertEquals(0, solution.lenLongestFibSubseq(new int[] {}));
-    assertEquals(0, solution.lenLongestFibSubseq(new int[] { 0, 1 }));
-    assertEquals(0, solution.lenLongestFibSubseq(new int[] { 0, 1, 2 }));
-    assertEquals(0, solution.lenLongestFibSubseq(new int[] { 0, 1, 2, 4 }));
-    assertEquals(3, solution.lenLongestFibSubseq(new int[] { 0, 1, 1 }));
-    assertEquals(3, solution.lenLongestFibSubseq(new int[] { 1, 1, 2 }));
-    assertEquals(0, solution.lenLongestFibSubseq(new int[] { 1, 1, 3 }));
+    assertEquals(0, solution.lenLongestFibSubseq(new int[] { 1, 2 }));
+    assertEquals(0, solution.lenLongestFibSubseq(new int[] { 1, 2, 4 }));
+    assertEquals(0, solution.lenLongestFibSubseq(new int[] { 1, 2, 4, 7 }));
+    assertEquals(3, solution.lenLongestFibSubseq(new int[] { 1, 2, 3 }));
+    assertEquals(0, solution.lenLongestFibSubseq(new int[] { 1, 3, 5 }));
     assertEquals(
       5,
       solution.lenLongestFibSubseq(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })
