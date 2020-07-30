@@ -53,13 +53,14 @@ const createTestClass = (fileName, packageName) => {
   createFile(fileName, packageName, TEST_CONTENT)
 }
 
-const echoGitCommands = ({ directories, title }) => {
+const echoCommands = ({ directories, title, packageName }) => {
   const gitAdd = `git add ${directories.join(' ')}`
   const gitCommit = `git commit -m 'add solution for ${title}'`
   console.log(
     chalk.blue(`${gitAdd} \\
 && ${gitCommit}`)
   )
+  console.log(chalk.green(`gradle test -i --tests ${packageName}`))
 }
 
 const execCommitCommands = ({ directories, title }) => {
@@ -94,9 +95,10 @@ const create = ({ title, titleSlug }) => {
   createSolutionClass(srcFile, packageName)
   createTestClass(testFile, packageName)
   openFiles([srcFile, testFile])
-  echoGitCommands({
+  echoCommands({
     directories,
     title,
+    packageName,
   })
 }
 
