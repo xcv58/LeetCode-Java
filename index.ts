@@ -53,14 +53,14 @@ const createTestClass = (fileName, packageName) => {
   createFile(fileName, packageName, TEST_CONTENT)
 }
 
-const echoCommands = ({ directories, title, packageName }) => {
+const echoCommands = ({ directories, title, testTarget }) => {
   const gitAdd = `git add ${directories.join(' ')}`
   const gitCommit = `git commit -m 'add solution for ${title}'`
   console.log(
     chalk.blue(`${gitAdd} \\
 && ${gitCommit}`)
   )
-  console.log(chalk.green(`gradle test -i --tests ${packageName}`))
+  console.log(chalk.green(`gradle test -i --tests ${testTarget}`))
 }
 
 const execCommitCommands = ({ directories, title }) => {
@@ -91,6 +91,7 @@ const create = ({ title, titleSlug }) => {
   const directories = [srcDirectory, testDirectory]
   const srcFile = join(srcDirectory, 'Solution.java')
   const testFile = join(testDirectory, 'SolutionTest.java')
+  const testTarget = `com.xcv58.leetcode.${name}.SolutionTest`
   createDirectories(directories)
   createSolutionClass(srcFile, packageName)
   createTestClass(testFile, packageName)
@@ -98,7 +99,7 @@ const create = ({ title, titleSlug }) => {
   echoCommands({
     directories,
     title,
-    packageName,
+    testTarget,
   })
 }
 
