@@ -1,7 +1,5 @@
 package com.xcv58.leetcode.three_equal_parts;
 
-import java.util.*;
-
 public class Solution {
 
   public int[] threeEqualParts(int[] A) {
@@ -23,31 +21,35 @@ public class Solution {
     if (partLen == 0) {
       return new int[] { 0, A.length - 1 };
     }
-    int[] divider1 = findRange(ones, partLen);
-    int[] divider2 = findRange(ones, 2 * partLen);
-    for (int i = divider1[0]; i < divider1[1]; i++) {
-      for (int j = divider2[0] + 1; j <= divider2[1]; j++) {
-        if (isEqualDivision(A, i, j)) {
-          return new int[] { i, j };
-        }
-      }
+    int[] range1 = findRange(ones, partLen);
+    int[] range2 = findRange(ones, 2 * partLen);
+    int[] range3 = findRange(ones, 3 * partLen);
+    if (range3[2] > range2[2] || range3[2] > range1[2]) {
+      System.out.println("Fail fast");
+      return new int[] { -1, -1 };
+    }
+    int i = range1[0] + range3[2];
+    int j = range2[0] + 1 + range3[2];
+    if (isEqualDivision(A, i, j)) {
+      return new int[] { i, j };
     }
     return new int[] { -1, -1 };
   }
 
   private int[] findRange(int[] ones, int size) {
-    int[] res = new int[] { -1, -1 };
+    int[] res = new int[] { -1, -1, -1 };
     for (int i = 0; i < ones.length; i++) {
       if (ones[i] == size) {
+        res[1] = i;
         if (res[0] == -1) {
           res[0] = i;
         }
       }
       if (ones[i] > size) {
-        res[1] = i;
         break;
       }
     }
+    res[2] = res[1] - res[0];
     return res;
   }
 
