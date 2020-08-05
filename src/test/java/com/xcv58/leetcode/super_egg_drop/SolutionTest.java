@@ -49,5 +49,11 @@ public class SolutionTest {
     assertEquals(11, solution.superEggDrop(100, 1024));
     assertEquals(19, solution.superEggDrop(4, 5000));
     assertEquals(23, solution.superEggDrop(4, 10000));
+    assertEquals(40, solution.superEggDrop(4, 100000));
+    assertEquals(60, solution.superEggDrop(4, 500000));
+    assertEquals(477, solution.superEggDrop(4, Integer.MAX_VALUE));
+    assertEquals(49, solution.superEggDrop(9, Integer.MAX_VALUE));
+    assertEquals(31, solution.superEggDrop(200, Integer.MAX_VALUE));
+    assertEquals(31, solution.superEggDrop(1024 * 1024, Integer.MAX_VALUE));
   }
 }
