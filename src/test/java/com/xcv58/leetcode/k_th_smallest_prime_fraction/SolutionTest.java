@@ -40,5 +40,9 @@ public class SolutionTest {
         5
       )
     );
+    assertArrayEquals(
+      new int[] { 13, 17 },
+      solution.kthSmallestPrimeFraction(new int[] { 1, 13, 17, 59 }, 6)
+    );
   }
 }

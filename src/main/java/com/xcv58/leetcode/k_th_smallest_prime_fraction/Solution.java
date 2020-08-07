@@ -1,27 +1,38 @@
 package com.xcv58.leetcode.k_th_smallest_prime_fraction;
 
-import java.util.*;
-
 public class Solution {
 
   public int[] kthSmallestPrimeFraction(int[] A, int K) {
     if (A == null) {
       return null;
     }
-    int m = A.length;
-    PriorityQueue<int[]> heap = new PriorityQueue<>(
-      (a1, a2) -> Integer.compare(A[a1[0]] * A[a2[1]], A[a1[1]] * A[a2[0]])
-    );
-    for (int i = 1; i < A.length; i++) {
-      heap.offer(new int[] { 0, i });
-    }
-    while (K-- > 1) {
-      int[] cur = heap.poll();
-      if (cur[0] + 1 < A.length) {
-        heap.offer(new int[] { cur[0] + 1, cur[1] });
+    int[] res = new int[2];
+    for (double low = 0.0, high = 1.0; high - low > 0.0000001;) {
+      double mid = (low + high) / 2.0;
+      int[] tmp = getCountAndPair(A, mid);
+      if (tmp[0] > K) {
+        high = mid;
+      } else {
+        res[0] = tmp[1];
+        res[1] = tmp[2];
+        low = mid;
       }
     }
-    int[] res = heap.poll();
-    return new int[] { A[res[0]], A[res[1]] };
+    return res;
+  }
+
+  private int[] getCountAndPair(int[] A, double target) {
+    int[] res = new int[] { 0, 0, 1 };
+    for (int i = 1, j = -1; i < A.length; i++) {
+      while (j + 1 < A.length && A[j + 1] < A[i] * target) {
+        j++;
+      }
+      if (j >= 0 && res[1] * A[i] < res[2] * A[j]) {
+        res[1] = A[j];
+        res[2] = A[i];
+      }
+      res[0] += j + 1;
+    }
+    return res;
   }
 }
