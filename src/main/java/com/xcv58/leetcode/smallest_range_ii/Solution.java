@@ -8,29 +8,19 @@ public class Solution {
     if (A == null || A.length < 2) {
       return 0;
     }
-    int res = Integer.MAX_VALUE;
-    for (int i = 0; i < A.length; i++) {
-      for (int max : Arrays.asList(A[i] + K, A[i] - K)) {
-        int range = getRange(A, K, max);
-        if (range >= 0) {
-          res = Math.min(res, range);
-        }
-      }
+    Arrays.sort(A);
+    int min = A[0];
+    int max = A[A.length - 1];
+    int res = max - min;
+    for (int i = 0; i < A.length - 1; i++) {
+      int left = A[i];
+      int right = A[1 + i];
+      res =
+        Math.min(
+          res,
+          Math.abs(Math.max(left + K, max - K) - Math.min(right - K, min + K))
+        );
     }
     return res;
-  }
-
-  private int getRange(int[] A, int K, int max) {
-    int min = max;
-    for (int i = 0; i < A.length; i++) {
-      if (A[i] + K <= max) {
-        min = Math.min(min, A[i] + K);
-      } else if (A[i] - K <= max) {
-        min = Math.min(min, A[i] - K);
-      } else {
-        return -1;
-      }
-    }
-    return max - min;
   }
 }
