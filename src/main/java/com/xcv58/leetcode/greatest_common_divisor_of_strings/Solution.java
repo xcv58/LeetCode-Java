@@ -6,25 +6,14 @@ public class Solution {
     if (str1 == null || str2 == null) {
       return "";
     }
-    String res = "";
-    for (int i = 1; i <= Math.min(str1.length(), str2.length()); i++) {
-      String tmp = str1.substring(0, i);
-      if (isDividable(str1, tmp) && isDividable(str2, tmp)) {
-        res = tmp;
-      }
+    if (!(str1 + str2).equals(str2 + str1)) {
+      return "";
     }
-    return res;
-  }
-
-  private boolean isDividable(String s, String dividor) {
-    if (s.length() % dividor.length() != 0) {
-      return false;
+    if (str1.length() == str2.length()) {
+      return str1;
     }
-    for (int i = 0; i < s.length(); i++) {
-      if (s.charAt(i) != dividor.charAt(i % dividor.length())) {
-        return false;
-      }
-    }
-    return true;
+    String large = str1.length() > str2.length() ? str1 : str2;
+    String small = large == str1 ? str2 : str1;
+    return gcdOfStrings(small, large.substring(small.length()));
   }
 }
