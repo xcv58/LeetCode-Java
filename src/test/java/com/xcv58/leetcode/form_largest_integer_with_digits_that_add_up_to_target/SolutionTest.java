@@ -9,6 +9,16 @@ public class SolutionTest {
   @Test
   public void test() {
     Solution solution = new Solution();
+    assertEquals("0", solution.largestNumber(null, 29));
+    assertEquals("0", solution.largestNumber(null, -1));
+    assertEquals(
+      "0",
+      solution.largestNumber(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 0)
+    );
+    assertEquals(
+      "884444444",
+      solution.largestNumber(new int[] { 5, 6, 7, 3, 4, 6, 7, 4, 8 }, 29)
+    );
     assertEquals(
       "322111111111",
       solution.largestNumber(
@@ -33,6 +43,13 @@ public class SolutionTest {
       solution.largestNumber(
         new int[] { 6, 10, 15, 40, 40, 40, 40, 40, 40 },
         47
+      )
+    );
+    assertEquals(
+      "41111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+      solution.largestNumber(
+        new int[] { 6, 39, 65, 35, 21, 305, 321, 333, 367 },
+        1373
       )
     );
     assertEquals(
