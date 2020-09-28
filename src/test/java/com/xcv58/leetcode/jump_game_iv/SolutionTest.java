@@ -2,6 +2,7 @@ package com.xcv58.leetcode.jump_game_iv;
 
 import static org.junit.Assert.*;
 
+import java.util.*;
 import org.junit.Test;
 
 public class SolutionTest {
@@ -35,5 +36,22 @@ public class SolutionTest {
       3,
       solution.minJumps(new int[] { 11, 22, 7, 7, 7, 7, 7, 7, 7, 22, 13 })
     );
+    assertEquals(20, solution.minJumps(getUniqueIntArray(21)));
+    assertEquals(2000, solution.minJumps(getUniqueIntArray(2001)));
+    assertEquals(200000, solution.minJumps(getUniqueIntArray(200001)));
+  }
+
+  private int[] getUniqueIntArray(int n) {
+    int[] res = new int[n];
+    HashSet<Integer> used = new HashSet<>();
+    for (int i = 0; i < n; i++) {
+      int random = (int) (Math.random() * n * 100);
+      while (used.contains(random)) {
+        random = (int) (Math.random() * n * 100);
+      }
+      res[i] = random;
+      used.add(random);
+    }
+    return res;
   }
 }
