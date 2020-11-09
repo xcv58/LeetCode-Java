@@ -5,29 +5,31 @@ import java.util.*;
 public class Solution {
 
   public int maxEnvelopes(int[][] envelopes) {
-    return maxEnvelopes(new int[] { -1, -1 }, envelopes, new HashMap<>()) - 1;
-  }
-
-  public int maxEnvelopes(
-    int[] envelope,
-    int[][] envelopes,
-    HashMap<String, Integer> map
-  ) {
-    String key = Arrays.toString(envelope);
-    if (map.containsKey(key)) {
-      return map.get(key);
+    if (envelopes == null || envelopes.length == 0) {
+      return 0;
     }
-    int res = 1;
+    Arrays.sort(
+      envelopes,
+      (e1, e2) -> {
+        if (e1[0] == e2[0]) {
+          return Integer.compare(e2[1], e1[1]);
+        }
+        return Integer.compare(e1[0], e2[0]);
+      }
+    );
+    int res = 0;
+    int[] dp = new int[envelopes.length];
     for (int[] e : envelopes) {
-      if (isLargeThan(e, envelope)) {
-        res = Math.max(res, 1 + maxEnvelopes(e, envelopes, map));
+      int index = Arrays.binarySearch(dp, 0, res, e[1]);
+      if (index < 0) {
+        index = -index - 1;
+      }
+      dp[index] = e[1];
+      if (index == res) {
+        res++;
       }
     }
-    map.put(key, res);
-    return res;
-  }
 
-  private boolean isLargeThan(int[] e1, int[] e2) {
-    return e1[0] > e2[0] && e1[1] > e2[1];
+    return res;
   }
 }
